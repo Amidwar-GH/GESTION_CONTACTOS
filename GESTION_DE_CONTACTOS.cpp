@@ -65,7 +65,50 @@ void AgregarContacto(){
 	
 } 
 
-
+void eliminarContacto(){
+	
+	char RESP;
+	bool validador = false;
+	do{
+		if(TotalContactos == 0){
+			cout<<"Aun no hay contactos registrados."<<endl;
+			return;
+		}
+		
+		cin.ignore();
+		string nombre;
+		cout<<"--------------------------------------"<<endl;
+		cout<<"PROTOCOLO DE INCORPORACION DE CONTACTO"<<endl;
+		cout<<"--------------------------------------"<<endl;
+		cout<<"Nombre del contacto que desea eliminar: "<<endl;
+		getline(cin,nombre);
+		
+		for(int i=0; i<TotalContactos; i++){
+			if(nombre == contactos[i].nombres){
+				for(int j=i; j<TotalContactos-1; j++){
+					contactos[j] = contactos[j+1];
+				}
+				TotalContactos -= 1;
+				cout<<"El contacto fue eliminado exitosamente"<<endl;
+				validador = true;
+				return;
+			}
+		}
+		
+		if(!validador){
+			cout<<"El contacto no fue encontrado"<<endl;
+			break;
+		}
+		cout<<"Desea ELIMINAR otro contacto? (S/N)"<<endl;
+		cin>>RESP;
+		RESP = toupper(RESP);
+		
+	}while(RESP == 'S' );
+	
+	cout<<"Regresando al MENU principal..."<<endl;
+	
+	
+}
 
 
 int main(){
@@ -88,9 +131,9 @@ int main(){
 		
 		switch (opcion) {
             case 'A': AgregarContacto(); break;
-            /*case 'B':
-            case 'C': 
-            case 'D':*/ 
+            case 'B': eliminarContacto(); break;
+            //case 'C': 
+            //case 'D':*/ 
             case 'E': cout << "Saliendo del programa..."; break;
             default: cout << "Opción no válida.\n";
         }
