@@ -111,6 +111,25 @@ void eliminarContacto(){
 }
 
 
+void mostrarContactos(){
+	cout<<"---------------------------------"<<endl;
+	cout<<"PROTOCOLO DE MUESTRA DE CONTACTOS"<<endl;
+	cout<<"---------------------------------"<<endl;
+	if(TotalContactos == 0){
+		cout<<"Aun no hay contactos registrados"<<endl;
+		return;
+	}
+	
+	for(int i=0; i<TotalContactos; i++){
+		cout<<"Nombre: "<< contactos[i].nombres<<"| Sexo "<<contactos[i].sexo<<" | Edad "<<contactos[i].edad<<" | Telefono "<<contactos[i].telefono<<" | Email "<<contactos[i].email<<" | Nacionalidad "<<contactos[i].nacionalidad<<endl;
+		cout<<"------------------------------------------------------------------------------------------------------"<<endl;
+			
+	}
+}
+
+
+
+
 int main(){
 	char opcion;
 	
@@ -132,7 +151,7 @@ int main(){
 		switch (opcion) {
             case 'A': AgregarContacto(); break;
             case 'B': eliminarContacto(); break;
-            //case 'C': 
+            case 'C': mostrarContactos(); break;
             //case 'D':*/ 
             case 'E': cout << "Saliendo del programa..."; break;
             default: cout << "Opción no válida.\n";
