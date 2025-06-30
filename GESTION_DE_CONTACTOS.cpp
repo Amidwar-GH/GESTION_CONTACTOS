@@ -129,6 +129,52 @@ void mostrarContactos(){
 
 
 
+string obtenerServidorCorreo(string email) {
+    int pos = email.find('@');
+    if (pos != -1) {
+        return email.substr(pos + 1);
+    }
+    return "desconocido";
+}
+
+
+void mostrarContactosPorServidor() {
+    
+    cout<<"----------------------------------------------"<<endl;
+	cout<<"PROTOCOLO DE MUESTRA DE CONTACTOS POR SERVIDOR"<<endl;
+	cout<<"----------------------------------------------"<<endl;
+    
+    
+    if (TotalContactos == 0) {
+        cout << "No hay contactos registrados."<<endl;
+        return;
+    }
+
+    contactoEmail copia[ContactosLimite];
+    for (int i = 0; i < TotalContactos; i++) {
+        copia[i] = contactos[i];
+    }
+
+    for (int i = 0; i < TotalContactos - 1; i++) {
+        for (int j = i + 1; j < TotalContactos; j++) {
+            if (obtenerServidorCorreo(copia[i].email) > obtenerServidorCorreo(copia[j].email)) {
+                contactoEmail temp = copia[i];
+                copia[i] = copia[j];
+                copia[j] = temp;
+            }
+        }
+    }
+
+    for (int i = 0; i < TotalContactos; i++) {
+        cout << "Servidor: " << obtenerServidorCorreo(copia[i].email)
+             << "\nNombre: " << copia[i].nombres
+             << "\nEmail: " << copia[i].email
+             << "\n--------------------------\n";
+    }
+}
+
+
+
 
 int main(){
 	char opcion;
@@ -152,7 +198,7 @@ int main(){
             case 'A': AgregarContacto(); break;
             case 'B': eliminarContacto(); break;
             case 'C': mostrarContactos(); break;
-            //case 'D':*/ 
+            case 'D': mostrarContactosPorServidor(); break;
             case 'E': cout << "Saliendo del programa..."; break;
             default: cout << "Opción no válida.\n";
         }
